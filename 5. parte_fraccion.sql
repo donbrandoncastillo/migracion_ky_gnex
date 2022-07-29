@@ -35,8 +35,9 @@ SELECT
 	0 																																			as ieps,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-FROM a24_ky_prod.parte	-- 686
-left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_importacion
+FROM a24_ky_prod.parte
+left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_importacion
+left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 where (fraccion_id_importacion is not null and (fraccion_id_exportacion is null and fraccion_id_extranjera_exportacion is null and fraccion_id_extranjera_importacion is null))
 and @its_all_ok;
 
@@ -68,8 +69,9 @@ SELECT
 	0 																																			as ieps,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-FROM a24_ky_prod.parte	-- 686
-left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+FROM a24_ky_prod.parte
+left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 where (fraccion_id_exportacion is not null and (fraccion_id_importacion is null and fraccion_id_extranjera_exportacion is null and fraccion_id_extranjera_importacion is null))
 and @its_all_ok;
 
@@ -100,8 +102,9 @@ SELECT
 	0 																																			as ieps,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-FROM a24_ky_prod.parte	-- 686
-left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+FROM a24_ky_prod.parte
+left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_importacion is null and fraccion_id_extranjera_exportacion is null))
 and @its_all_ok;
 
@@ -137,7 +140,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_importacion = fraccion_id_extranjera_exportacion))
 	and @its_all_ok
 	union all
@@ -166,7 +170,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_importacion = fraccion_id_extranjera_exportacion))
 	and @its_all_ok
 ) as inserts_finales;
@@ -203,7 +208,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_importacion is null and fraccion_id_extranjera_exportacion is not null))
 	and @its_all_ok
 	union all
@@ -232,7 +238,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_importacion is null and fraccion_id_extranjera_exportacion is not null))
 	and @its_all_ok
 ) as inserts_finales;
@@ -269,7 +276,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_exportacion is null and fraccion_id_extranjera_importacion is not null))
 	and @its_all_ok
 	union all
@@ -298,7 +306,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and (fraccion_id_extranjera_exportacion is null and fraccion_id_extranjera_importacion is not null))
 	and @its_all_ok
 ) as inserts_finales;
@@ -336,7 +345,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and fraccion_id_extranjera_exportacion != fraccion_id_extranjera_importacion)
 	and @its_all_ok
 	union all
@@ -365,7 +375,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and fraccion_id_extranjera_exportacion != fraccion_id_extranjera_importacion)
 	and @its_all_ok
 	union all
@@ -394,7 +405,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion = fraccion_id_importacion and fraccion_id_extranjera_exportacion != fraccion_id_extranjera_importacion)
 	and @its_all_ok
 ) as inserts_finales;
@@ -431,7 +443,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion is not null and fraccion_id_importacion is null and fraccion_id_extranjera_exportacion is not null and fraccion_id_extranjera_importacion is null)
 	and @its_all_ok
 	union all
@@ -460,7 +473,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_exportacion is not null and fraccion_id_importacion is null and fraccion_id_extranjera_exportacion is not null and fraccion_id_extranjera_importacion is null)
 	and @its_all_ok
 ) as inserts_finales;
@@ -497,7 +511,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion != fraccion_id_exportacion AND (fraccion_id_extranjera_importacion is null and fraccion_id_extranjera_exportacion is null))
 	and @its_all_ok
 	union all
@@ -526,7 +541,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_importacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion != fraccion_id_exportacion AND (fraccion_id_extranjera_importacion is null and fraccion_id_extranjera_exportacion is null))
 	and @its_all_ok
 ) as inserts_finales;
@@ -562,8 +578,9 @@ from (
 		0 																																			as ieps,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-	FROM a24_ky_prod.parte	-- 686
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_importacion
+	FROM a24_ky_prod.parte
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion is not null and fraccion_id_exportacion is null AND (fraccion_id_extranjera_importacion = fraccion_id_extranjera_exportacion))
 	and @its_all_ok
 	union all
@@ -592,7 +609,8 @@ from (
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
 	FROM a24_ky_prod.parte
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion is not null and fraccion_id_exportacion is null AND (fraccion_id_extranjera_importacion = fraccion_id_extranjera_exportacion))
 	and @its_all_ok
 ) as inserts_finales;
@@ -629,8 +647,9 @@ from (
 		0 																																			as ieps,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-	FROM a24_ky_prod.parte	-- 686
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_importacion
+	FROM a24_ky_prod.parte
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion != fraccion_id_exportacion AND (fraccion_id_extranjera_importacion is not null and fraccion_id_extranjera_exportacion is null))
 	and @its_all_ok
 	union all
@@ -658,8 +677,9 @@ from (
 		0 																																			as ieps,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-	FROM a24_ky_prod.parte	-- 686
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_exportacion
+	FROM a24_ky_prod.parte
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_exportacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion != fraccion_id_exportacion AND (fraccion_id_extranjera_importacion is not null and fraccion_id_extranjera_exportacion is null))
 	and @its_all_ok
 	union all
@@ -687,8 +707,9 @@ from (
 		0 																																			as ieps,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-	FROM a24_ky_prod.parte	-- 686
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+	FROM a24_ky_prod.parte
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (fraccion_id_importacion != fraccion_id_exportacion AND (fraccion_id_extranjera_importacion is not null and fraccion_id_extranjera_exportacion is null))
 	and @its_all_ok
 ) as inserts_finales;
@@ -720,8 +741,9 @@ SELECT
 	0 																																			as ieps,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 	if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-FROM a24_ky_prod.parte	-- 686
-left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+FROM a24_ky_prod.parte
+left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 where (fraccion_id_importacion is null and fraccion_id_exportacion is null AND (fraccion_id_extranjera_importacion = fraccion_id_extranjera_exportacion))
 and @its_all_ok;
 
@@ -756,8 +778,9 @@ from (
 		0 																																			as ieps,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-	FROM a24_ky_prod.parte	-- 686
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_importacion
+	FROM a24_ky_prod.parte
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (parte.fraccion_id_exportacion is null and parte.fraccion_id_importacion is not NULL and parte.fraccion_id_extranjera_exportacion is null and parte.fraccion_id_extranjera_importacion is not NULL)
 	and @its_all_ok
 	union all
@@ -785,8 +808,9 @@ from (
 		0 																																			as ieps,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '2020-12-29', '2015-01-01')			as fecha_inicio,
 		if(LENGTH(fraccion_dev.fraccion) = 10, '9999-12-31', '2020-12-28')			as fecha_final 
-	FROM a24_ky_prod.parte	-- 686
-	left join a24_ky_dev.fraccion	as fraccion_dev on fraccion_dev.id		=	parte.fraccion_id_extranjera_importacion
+	FROM a24_ky_prod.parte
+	left join a24_ky_prod.fraccion		as	fraccion_prod	on fraccion_prod.id					=	parte.fraccion_id_extranjera_importacion
+	left join a24_ky_dev.fraccion			as 	fraccion_dev 	on fraccion_dev.fraccion		=	fraccion_prod.fraccion
 	where (parte.fraccion_id_exportacion is null and parte.fraccion_id_importacion is not NULL and parte.fraccion_id_extranjera_exportacion is null and parte.fraccion_id_extranjera_importacion is not NULL)
 	and @its_all_ok
 ) as inserts_finales;

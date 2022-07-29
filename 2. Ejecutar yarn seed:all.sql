@@ -1,0 +1,1 @@
+2. Ejecutar yarn seed:all
